@@ -1,7 +1,66 @@
 import './Agent.css';
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { GoogleGenAI } from "@google/genai";
 
 function Agent() {
+
+    //const navigate = useNavigate();
+    const [prompt, setPrompt] = useState("");
+    const [output, setOutput] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    
+
+    const handleGenerate = async () => {
+        if (!prompt.trim()) return;
+        setLoading(true);
+        setError(null);
+        setOutput(null);
+        try {
+            const ai = new GoogleGenAI({
+                apiKey: process.env.GEMINI_API_KEY || 'AIzaSyArM059-tUrycCgmJwo4OAWgsdAE3qz94o',
+            });
+
+            const result = await ai.models.generateContent({
+                model: "gemini-2.5-flash",
+                contents: `
+                    Return ONLY valid JSON.
+                    Schema:
+                    [
+                    {
+                        "Phase": "string",
+                        "Topics": ["string"]
+                    }
+                    ]
+
+                    Topic: ${prompt}
+                    Rules:
+                    - Minimum 5 Phases
+                    - No markdown
+                    - No explanations
+                    - No trailing commas
+                    `
+            });
+            
+            const text = result.text;
+            const cleanText = text.replace(/```json|```/g, '').trim();
+            const parsedData = JSON.parse(cleanText);
+
+            if (Array.isArray(parsedData)) {
+    
+                //navigate('/roadmap', { state: { data: parsedData } });
+            } else {
+                throw new Error("Invalid data format received");
+            }
+        } catch (error) {
+            console.error(error);
+            setError("⚠ Error: Unable to generate response. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return(
         <div className="agent-container">
             {/* Navbar */}
@@ -23,13 +82,16 @@ function Agent() {
                             type="text"
                             className="prompt-input"
                             placeholder="What do you want to learn today?"
-                            ////
+                            value={prompt}
+                            onChange={(e) => setPrompt(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
                         />
                         <button
                             className="generate-btn"
-                            ////
-                        >Enter
-                            {/**/ }
+                            onClick={handleGenerate}
+                            disabled={loading}
+                        >
+                            {loading ? "Thinking..." : "Generate 🚀"}
                         </button>
                     </div>
                 </div>
