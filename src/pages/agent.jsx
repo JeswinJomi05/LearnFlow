@@ -13,13 +13,14 @@ function Agent() {
     
 
     const handleGenerate = async () => {
+        console.log("REACT_APP_GEMINI_API_KEY:", process.env.REACT_APP_GEMINI_API_KEY);
         if (!prompt.trim()) return;
         setLoading(true);
         setError(null);
         setOutput(null);
         try {
             const ai = new GoogleGenAI({
-                apiKey: process.env.GEMINI_API_KEY || 'AIzaSyDXYGq_k7niKhQYD9cRozrWsMWmNPebPBk',
+                apiKey: process.env.REACT_APP_GEMINI_API_KEY,
             });
 
             const result = await ai.models.generateContent({
