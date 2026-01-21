@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-light: #0f172a;
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --card-bg: #1e293b;
+    --border-color: #334155;
+    --primary-color: #60a5fa;
+    --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+.roadmap-container {
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-gradient);
+    font-family: 'Outfit', sans-serif;
+    position: relative;
+    overflow: hidden;
+    color: var(--text-primary);
+}
+
+/* Background Pattern */
+.roadmap-container::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#334155 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.roadmap-header {
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    right: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.roadmap-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    pointer-events: auto;
+    letter-spacing: -0.025em;
+}
+
+.roadmap-title span {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.home-btn,
+.back-btn {
+    padding: 10px 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 99px;
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    pointer-events: auto;
+}
+
+.home-btn:hover,
+.back-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    border-color: #64748b;
+    background: #334155;
+}
+
+.roadmap-error {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-light);
+    color: var(--text-primary);
+}
+
+/* React Flow Overrides */
+.roadmap-flow .react-flow__controls {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    padding: 4px;
+}
+
+.roadmap-flow .react-flow__controls-button {
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    margin: 2px 0;
+    fill: var(--text-secondary);
+}
+
+.roadmap-flow .react-flow__controls-button:hover {
+    background: #334155;
+    fill: var(--primary-color);
+}
+
+/* Custom Nodes */
+/* Unified styles for both node types */
+.phase-node,
+.topic-node {
+    padding: 10px;
+    min-width: 200px;
+    min-height: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 10;
+}
+
+.phase-node:hover,
+.topic-node:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.phase-content,
+.topic-content {
+    text-align: center;
+    width: 100%;
+}
+
+
+
+.phase-label {
+    font-size: 1.2rem;
+    padding: 10px 5px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.topic-content {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.topic-node:hover .topic-content {
+    color: var(--text-primary);
+}
+
+.handle {
+    width: 10px;
+    height: 10px;
+    background: #475569;
+    border: 2px solid #1e293b;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.phase-node:hover .handle,
+.topic-node:hover .handle {
+    background: var(--primary-color);
+    border-color: var(--card-bg);
+}

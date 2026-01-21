@@ -5,7 +5,7 @@ import { GoogleGenAI } from "@google/genai";
 
 function Agent() {
 
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const [prompt, setPrompt] = useState("");
     const [output, setOutput] = useState("");
     const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ function Agent() {
         setOutput(null);
         try {
             const ai = new GoogleGenAI({
-                apiKey: process.env.GEMINI_API_KEY || 'AIzaSyArM059-tUrycCgmJwo4OAWgsdAE3qz94o',
+                apiKey: process.env.GEMINI_API_KEY || 'AIzaSyDXYGq_k7niKhQYD9cRozrWsMWmNPebPBk',
             });
 
             const result = await ai.models.generateContent({
@@ -49,7 +49,7 @@ function Agent() {
 
             if (Array.isArray(parsedData)) {
     
-                //navigate('/roadmap', { state: { data: parsedData } });
+                navigate('/roadmap', { state: { data: parsedData } });
             } else {
                 throw new Error("Invalid data format received");
             }
@@ -97,6 +97,8 @@ function Agent() {
                 </div>
 
                 {/* Output Section */}
+                {error && <div className="output-card" style={{ color: '#ff6b6b', textAlign: 'center' }}>{error}</div>}
+
                 {/**/ }
                 {/* output && (
                     <Roadmap data={output} />
