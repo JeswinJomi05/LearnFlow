@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# LearnFlow - AI GENERATED ROADMAPS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+LearnFlow is an AI-powered web platform that generates personalized learning roadmaps for any course or skill based on user prompts. It helps learners move from confusion to clarity by providing structured, step-by-step learning paths.
 
 ## Available Scripts
 
